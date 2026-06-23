@@ -1,0 +1,329 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--red:#C0392B;--red-l:#FDECEA;--text:#1a1a1a;--muted:#6b7280;--border:rgba(0,0,0,0.08);--bg:#fff;--bg2:#f9f9f8;}
+.port{background:var(--bg);color:var(--text);border-radius:var(--border-radius-lg);border:0.5px solid var(--border);font-family:var(--font-sans);overflow:hidden;display:flex;flex-direction:column;}
+.banner{width:100%;height:90px;background:#0d1117;flex-shrink:0;overflow:hidden;}
+.banner svg{width:100%;height:100%;}
+.top-header{background:var(--bg);border-bottom:0.5px solid var(--border);padding:0 1rem;display:flex;align-items:center;min-height:42px;flex-shrink:0;gap:0.5rem;}
+.hname{font-size:12px;font-weight:500;color:var(--text);margin-right:auto;white-space:nowrap;}
+.top-nav{display:flex;overflow-x:auto;}
+.top-nav a{font-size:11px;color:var(--muted);text-decoration:none;padding:0 10px;height:42px;display:flex;align-items:center;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s;}
+.top-nav a:hover{color:var(--red);}
+.top-nav a.active{color:var(--red);border-bottom:2px solid var(--red);font-weight:500;}
+.body{display:flex;flex:1;}
+.sidebar{width:160px;min-width:160px;background:var(--bg2);border-right:0.5px solid var(--border);padding:1.5rem 0.85rem;display:flex;flex-direction:column;align-items:center;}
+.avatar{width:64px;height:64px;border-radius:50%;background:#f0f0ee;border:2px solid #e0e0dd;display:flex;align-items:center;justify-content:center;margin-bottom:0.6rem;}
+.avatar i{font-size:26px;color:#c0c0bb;}
+.avatar-hint{font-size:9px;color:#c0c0bb;margin-bottom:0.5rem;}
+.sname{font-size:12px;font-weight:500;color:var(--text);text-align:center;line-height:1.4;margin-bottom:2px;}
+.scred{font-size:10px;color:var(--red);text-align:center;margin-bottom:2px;font-weight:500;}
+.stitle{font-size:10px;color:var(--muted);text-align:center;line-height:1.5;margin-bottom:1rem;}
+.sdiv{width:100%;height:0.5px;background:var(--border);margin-bottom:1rem;}
+.slinks{width:100%;display:flex;flex-direction:column;gap:10px;align-items:flex-start;}
+.slinks a{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--muted);text-decoration:none;}
+.slinks a i{font-size:16px;color:var(--red);}
+.slinks a:hover{color:var(--red);}
+.main{flex:1;min-width:0;}
+.panel{display:none;padding:1.5rem;}
+.panel.active{display:block;}
+.slabel{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:.35rem;}
+.stit{font-size:18px;font-weight:500;color:var(--text);margin-bottom:1rem;}
+.hero-tag{display:inline-block;background:var(--red-l);color:var(--red);font-size:11px;padding:3px 11px;border-radius:20px;border:0.5px solid rgba(192,57,43,.2);margin-bottom:.75rem;}
+.hero h1{font-size:28px;font-weight:500;line-height:1.15;color:var(--text);margin-bottom:.5rem;}
+.hero h1 span{color:var(--red);}
+.hero-sub{font-size:13px;color:var(--muted);max-width:480px;line-height:1.7;margin-bottom:1rem;}
+.btn-r{background:var(--red);color:#fff;font-size:12px;font-weight:500;padding:7px 16px;border-radius:var(--border-radius-md);border:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
+.btn-o{background:transparent;color:var(--red);font-size:12px;font-weight:500;padding:7px 16px;border-radius:var(--border-radius-md);border:0.5px solid rgba(192,57,43,.4);cursor:pointer;}
+.atext{font-size:13px;line-height:1.8;color:var(--muted);}
+.edu-wrap{margin-top:.75rem;}
+.edu-item{border-left:2px solid var(--red);padding:0 0 1.25rem 1rem;position:relative;}
+.edu-item:last-child{padding-bottom:0;}
+.edu-dot{width:8px;height:8px;border-radius:50%;background:var(--red);position:absolute;left:-5px;top:4px;}
+.edu-year{font-size:10px;color:var(--red);font-weight:500;margin-bottom:2px;}
+.edu-degree{font-size:13px;font-weight:500;color:var(--text);margin-bottom:1px;}
+.edu-inst{font-size:12px;color:var(--muted);margin-bottom:4px;}
+.edu-row{display:flex;align-items:flex-start;gap:10px;}
+.edu-logo{width:36px;height:36px;border-radius:6px;background:var(--bg2);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.edu-logo i{font-size:18px;color:#bbb;}
+.award{display:flex;align-items:flex-start;gap:5px;font-size:11px;color:var(--muted);margin-top:3px;line-height:1.5;}
+.award i{font-size:12px;color:#c0a000;flex-shrink:0;margin-top:1px;}
+.rcard{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--border-radius-lg);padding:.9rem;}
+.rcard .icon{font-size:18px;color:var(--red);margin-bottom:.4rem;}
+.rcard h3{font-size:12px;font-weight:500;color:var(--text);margin-bottom:.3rem;}
+.rcard p{font-size:11px;color:var(--muted);line-height:1.5;}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:9px;margin-bottom:1.25rem;}
+.pub-card{border:0.5px solid var(--border);border-left:2px solid var(--red);border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;padding:.75rem .9rem;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start;}
+.pub-img{width:56px;height:56px;min-width:56px;border-radius:6px;background:var(--bg2);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pub-img i{font-size:20px;color:#bbb;}
+.pub-meta{display:flex;gap:6px;align-items:center;margin-bottom:3px;}
+.pub-year{font-size:10px;font-weight:500;color:var(--red);background:var(--red-l);padding:2px 7px;border-radius:10px;}
+.pub-journal{font-size:10px;color:var(--muted);}
+.pub-card h3{font-size:12px;font-weight:500;color:var(--text);margin-bottom:2px;line-height:1.45;}
+.pub-card p{font-size:11px;color:var(--muted);}
+.pub-link{font-size:10px;color:var(--red);text-decoration:none;}
+.pub-link:hover{text-decoration:underline;}
+.pres-card{border:0.5px solid var(--border);border-radius:var(--border-radius-md);padding:.7rem .9rem;margin-bottom:7px;background:var(--bg2);display:flex;gap:10px;align-items:flex-start;}
+.pres-map{width:52px;min-width:52px;height:38px;flex-shrink:0;}
+.pres-map svg{width:52px;height:38px;}
+.pres-year{font-size:11px;font-weight:500;color:var(--red);min-width:28px;padding-top:1px;flex-shrink:0;}
+.pres-body h3{font-size:12px;font-weight:500;color:var(--text);margin-bottom:2px;line-height:1.4;}
+.pres-body p{font-size:10px;color:var(--muted);}
+.job-card{border:0.5px solid var(--border);border-radius:var(--border-radius-lg);padding:1rem;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;}
+.job-logo{width:42px;height:42px;min-width:42px;border-radius:8px;background:var(--bg2);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:7px;color:#bbb;text-align:center;line-height:1.3;padding:2px;}
+.job-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:1px;}
+.job-org{font-size:11px;color:var(--red);margin-bottom:1px;}
+.job-loc{font-size:10px;color:var(--muted);margin-bottom:5px;}
+.job-desc{font-size:11px;color:var(--muted);line-height:1.6;}
+.ta-card{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--border-radius-lg);padding:1rem;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;}
+.ta-icon{width:40px;height:40px;min-width:40px;border-radius:8px;background:var(--red-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ta-icon i{font-size:20px;color:var(--red);}
+.ta-body h3{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;}
+.ta-body p{font-size:11px;color:var(--muted);line-height:1.6;}
+.form-group{margin-bottom:12px;}
+.form-group label{display:block;font-size:11px;font-weight:500;color:var(--text);margin-bottom:4px;}
+.form-group input,.form-group textarea{width:100%;font-size:13px;padding:8px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--border);background:var(--bg);color:var(--text);font-family:var(--font-sans);}
+.form-group textarea{resize:vertical;min-height:100px;}
+.form-note{font-size:11px;color:var(--muted);margin-bottom:12px;}
+.pub-section-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--red);text-decoration:none;margin-top:.75rem;cursor:pointer;}
+.pub-section-link:hover{text-decoration:underline;}
+.footer{padding:.75rem 1.5rem;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;background:var(--bg2);}
+.footer p{font-size:10px;color:var(--muted);}
+</style>
+
+<div class="port">
+<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Julieth Gómez Durán — Academic Portfolio</h2>
+
+<div class="banner"><svg viewBox="0 0 680 90" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><rect width="680" height="90" fill="#0d1117"/><polyline points="0,55 30,55 38,55 42,20 46,75 50,55 80,55 88,55 92,30 96,70 100,55 130,55 138,55 142,15 148,78 152,55 180,55 680,55" fill="none" stroke="#C0392B" stroke-width="1.2" opacity="0.7"/><polyline points="0,65 60,65 68,65 72,45 76,72 80,65 140,65 148,65 152,48 156,69 160,65 680,65" fill="none" stroke="#E74C3C" stroke-width="0.6" opacity="0.3"/><circle cx="310" cy="42" r="7" fill="none" stroke="#C0392B" stroke-width="1" opacity="0.8"/><circle cx="310" cy="42" r="3" fill="#C0392B" opacity="0.5"/><line x1="310" y1="35" x2="305" y2="22" stroke="#C0392B" stroke-width="0.8" opacity="0.6"/><line x1="310" y1="35" x2="316" y2="20" stroke="#C0392B" stroke-width="0.8" opacity="0.6"/><line x1="303" y1="40" x2="290" y2="32" stroke="#C0392B" stroke-width="0.8" opacity="0.6"/><line x1="303" y1="45" x2="288" y2="50" stroke="#C0392B" stroke-width="0.8" opacity="0.6"/><line x1="317" y1="42" x2="345" y2="42" stroke="#C0392B" stroke-width="0.8" opacity="0.7"/><circle cx="355" cy="42" r="5.5" fill="none" stroke="#E74C3C" stroke-width="0.8" opacity="0.7"/><circle cx="355" cy="42" r="2.5" fill="#E74C3C" opacity="0.4"/><line x1="355" y1="36" x2="352" y2="25" stroke="#E74C3C" stroke-width="0.7" opacity="0.5"/><line x1="355" y1="36" x2="360" y2="24" stroke="#E74C3C" stroke-width="0.7" opacity="0.5"/><line x1="361" y1="44" x2="374" y2="38" stroke="#E74C3C" stroke-width="0.7" opacity="0.5"/><line x1="361" y1="47" x2="375" y2="55" stroke="#E74C3C" stroke-width="0.7" opacity="0.5"/><line x1="362" y1="42" x2="390" y2="42" stroke="#E74C3C" stroke-width="0.7" opacity="0.6"/><circle cx="270" cy="30" r="4" fill="none" stroke="#C0392B" stroke-width="0.7" opacity="0.4"/><line x1="270" y1="34" x2="303" y2="42" stroke="#C0392B" stroke-width="0.6" opacity="0.3"/><circle cx="345" cy="42" r="2" fill="#C0392B" opacity="0.6"/><circle cx="362" cy="42" r="2" fill="#E74C3C" opacity="0.5"/><path d="M580,25 Q600,15 620,22 Q640,28 645,45 Q648,60 635,70 Q620,78 600,72 Q582,65 578,50 Q575,36 580,25Z" fill="none" stroke="#C0392B" stroke-width="0.8" opacity="0.25"/><text x="16" y="82" font-size="9" fill="#C0392B" opacity="0.5" font-family="monospace">LFP · CM Thalamus · aGPi · aDBS</text></svg></div>
+
+<div class="top-header">
+  <span class="hname">Julieth Gómez Durán, MS</span>
+  <nav class="top-nav">
+    <a class="active" onclick="sp('about',this)">About me</a>
+    <a onclick="sp('research',this)">Research</a>
+    <a onclick="sp('experience',this)">Experience</a>
+    <a onclick="sp('publications',this)">Publications</a>
+    <a onclick="sp('presentations',this)">Presentations</a>
+    <a onclick="sp('teaching',this)">Teaching</a>
+    <a onclick="sp('contact',this)">Contact me</a>
+  </nav>
+</div>
+
+<div class="body">
+<aside class="sidebar">
+  <div class="avatar"><i class="ti ti-user" aria-hidden="true"></i></div>
+  <p class="avatar-hint">Add photo</p>
+  <p class="sname">Julieth Gómez Durán</p>
+  <p class="scred">MS · Ph.D. Candidate</p>
+  <p class="stitle">Biomedical Engineering<br>University of Florida<br>Brain Mapping Lab</p>
+  <div class="sdiv"></div>
+  <div class="slinks">
+    <a href="https://linkedin.com/in/jugodu/"><i class="ti ti-brand-linkedin" aria-hidden="true"></i><span>LinkedIn</span></a>
+    <a href="#" onclick="sp('contact',document.querySelector('[onclick*=contact]'));return false;"><i class="ti ti-mail" aria-hidden="true"></i><span>Contact me</span></a>
+    <a href="#"><i class="ti ti-map-pin" aria-hidden="true"></i><span>Gainesville, FL</span></a>
+  </div>
+</aside>
+
+<div class="main">
+
+<div class="panel active" id="panel-about">
+  <div class="hero" style="margin-bottom:1.25rem;">
+    <span class="hero-tag">Ph.D. Candidate · Neural Engineering · Neuromodulation</span>
+    <h1>Julieth <span>Gómez Durán</span></h1>
+    <p class="hero-sub">Neuroscientist specializing in adaptive deep brain stimulation and biomarker discovery for Tourette syndrome — combining clinical research, real-time brain sensing, and computational signal analysis to advance neuromodulation therapy.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:.75rem;">
+      <button class="btn-r"><i class="ti ti-download" aria-hidden="true"></i> Download CV</button>
+      <button class="btn-o" onclick="sp('research',document.querySelector('[onclick*=research]'))">Explore research</button>
+    </div>
+  </div>
+  <p class="slabel">About me</p>
+  <p class="atext" style="margin-bottom:1.25rem;">Neuroscientist and Ph.D. candidate specializing in neuromodulation and deep brain stimulation, with a focus on the neural dynamics of involuntary behavior. My research spans adaptive DBS, biomarker discovery, and real-time brain sensing — combining clinical work with computational signal analysis and device programming. I bring prior industry experience at Medtronic (neuromodulation), Roche Diagnostics (technical operations), and Procter & Gamble (marketing/communication), enabling me to bridge engineering, patient needs, and product strategy.<br><br>Originally from Colombia and a J. William Fulbright Scholar, I'm seeking roles in neuromodulation, clinical research, neurophysiology, product development, or MedTech innovation.</p>
+  <p class="slabel">Education</p>
+  <div class="edu-wrap">
+    <div class="edu-item">
+      <div class="edu-dot"></div>
+      <div class="edu-row">
+        <div class="edu-logo" title="Add UF logo"><i class="ti ti-building" aria-hidden="true"></i></div>
+        <div>
+          <p class="edu-year">2020 – Present</p>
+          <p class="edu-degree">Ph.D. Candidate in Biomedical Engineering</p>
+          <p class="edu-inst">University of Florida, Gainesville, FL</p>
+          <p class="atext" style="font-size:11px;margin-bottom:4px;">Advisor: Dr. Aysegul Gunduz · Brain Mapping Lab</p>
+          <div class="award"><i class="ti ti-medal" aria-hidden="true"></i><span>SfN Trainee Professional Development Award (2024)</span></div>
+          <div class="award"><i class="ti ti-medal" aria-hidden="true"></i><span>Diversity Enhancement Award (2020–2024)</span></div>
+          <div class="award"><i class="ti ti-medal" aria-hidden="true"></i><span>Summer 2023 Travel Grant · Center for European Studies</span></div>
+          <div class="award"><i class="ti ti-medal" aria-hidden="true"></i><span>Travel Award · 10th International BCI Meeting (2023)</span></div>
+          <div class="award"><i class="ti ti-medal" aria-hidden="true"></i><span>AI Innovation Fellowship · Inspirit Innovators (2022)</span></div>
+          <div class="award"><i class="ti ti-medal" aria-hidden="true"></i><span>Industry-Partner Travel Award · BMES Annual Meeting (2022)</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-dot"></div>
+      <div class="edu-row">
+        <div class="edu-logo" title="Add UF logo"><i class="ti ti-building" aria-hidden="true"></i></div>
+        <div>
+          <p class="edu-year">2018 – 2020</p>
+          <p class="edu-degree">M.S. in Biomedical Engineering</p>
+          <p class="edu-inst">University of Florida, Gainesville, FL</p>
+          <div class="award"><i class="ti ti-medal" aria-hidden="true"></i><span>J. William Fulbright Scholarship</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-dot"></div>
+      <div class="edu-row">
+        <div class="edu-logo" title="Add CUC logo"><i class="ti ti-building" aria-hidden="true"></i></div>
+        <div>
+          <p class="edu-year">2007 – 2015</p>
+          <p class="edu-degree">B.S. in Electronics Engineering</p>
+          <p class="edu-inst">Universidad de la Costa, Barranquilla, Colombia</p>
+          <div class="award"><i class="ti ti-medal" aria-hidden="true"></i><span>Beca Talento Scholarship — 100% tuition (2007–2015)</span></div>
+          <div class="award"><i class="ti ti-medal" aria-hidden="true"></i><span>1st in rank — Honorable mention, high GPA</span></div>
+          <div class="award"><i class="ti ti-medal" aria-hidden="true"></i><span>Special mention — Saber-Pro excellence (2015)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="panel-research">
+  <p class="slabel">Research</p>
+  <h2 class="stit">What I work on</h2>
+  <div class="rgrid">
+    <div class="rcard"><div class="icon"><i class="ti ti-brain" aria-hidden="true"></i></div><h3>Adaptive DBS for Tourette syndrome</h3><p>Closed-loop neuromodulation using Medtronic Percept™ PC with SenSight directional leads, targeting CM thalamus and anterior GPi.</p></div>
+    <div class="rcard"><div class="icon"><i class="ti ti-wave-sine" aria-hidden="true"></i></div><h3>LFP signal processing</h3><p>Bilateral LFP recording, artifact identification, and biomarker extraction for tic detection and aDBS feedback control.</p></div>
+    <div class="rcard"><div class="icon"><i class="ti ti-activity" aria-hidden="true"></i></div><h3>Multimodal sensing</h3><p>Synchronized EMG (Delsys), video, and FROST streams to characterize voluntary vs. involuntary movement in DBS patients.</p></div>
+    <div class="rcard"><div class="icon"><i class="ti ti-heart-rate-monitor" aria-hidden="true"></i></div><h3>Cardiac artifact analysis</h3><p>Characterizing ECG contamination in bilateral LFP recordings for robust aDBS systems.</p></div>
+  </div>
+  <a class="pub-section-link" onclick="sp('publications',document.querySelector('[onclick*=publications]'));return false;"><i class="ti ti-file-text" aria-hidden="true"></i> View all publications</a>
+</div>
+
+<div class="panel" id="panel-experience">
+  <p class="slabel">Experience</p>
+  <h2 class="stit">Professional background</h2>
+  <div class="job-card">
+    <div class="job-logo" title="Add Medtronic logo">Logo</div>
+    <div>
+      <p class="job-title">Pain Sales Representative</p>
+      <p class="job-org">Medtronic</p>
+      <p class="job-loc">Barranquilla, Colombia · 2018</p>
+      <p class="job-desc">Met quarterly goals for Pain & Interventional therapies on Colombia's Caribbean Coast. Provided clinical support for Spinal Cord Stimulators, Drug Pump implants, and Balloon Kyphoplasty. Organized the 1st Pain Therapies Workshop in Santa Marta.</p>
+    </div>
+  </div>
+  <div class="job-card">
+    <div class="job-logo" title="Add Roche logo">Logo</div>
+    <div>
+      <p class="job-title">Field Engineering Specialist</p>
+      <p class="job-org">F. Hoffmann-La Roche (Roche Diagnostics)</p>
+      <p class="job-loc">Barranquilla, Colombia · 2015–2017</p>
+      <p class="job-desc">Serviced, repaired, and installed clinical diagnostics equipment across hematology, chemistry, immunology, and molecular biology. Minimized customer downtime through cost-effective repair strategies.</p>
+    </div>
+  </div>
+  <div class="job-card">
+    <div class="job-logo" title="Add P&G logo">Logo</div>
+    <div>
+      <p class="job-title">Marketing Intern — Brand Operations & Media</p>
+      <p class="job-org">Procter & Gamble</p>
+      <p class="job-loc">Bogotá, Colombia · 2013–2015</p>
+      <p class="job-desc">Led multi-brand marketing campaigns exceeding sales and awareness targets. Developed competitor media tracking processes and e-commerce positioning strategies for P&G brands.</p>
+    </div>
+  </div>
+  <div class="job-card">
+    <div class="job-logo" title="Add logo">Logo</div>
+    <div>
+      <p class="job-title">Spanish Instructor</p>
+      <p class="job-org">Mundo Latino in India</p>
+      <p class="job-loc">New Delhi, India · 2012</p>
+      <p class="job-desc">Taught Spanish as a second language at Lady Shri Ram, Gargi, and Sri Venkateswara Colleges (Delhi University). Authored <em>Viva Latino 1</em>, a beginner Spanish textbook.</p>
+    </div>
+  </div>
+  <div class="job-card">
+    <div class="job-logo" title="Add logo">Logo</div>
+    <div>
+      <p class="job-title">Electrical & Instrumentation Maintenance Assistant</p>
+      <p class="job-org">Smurfit Kappa Group</p>
+      <p class="job-loc">Barranquilla, Colombia · 2010–2012</p>
+      <p class="job-desc">Analyzed Combined Heat & Power Plant performance and planned E&I maintenance tasks to improve reliability and efficiency for the Paper Mill.</p>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="panel-publications">
+  <p class="slabel">Publications</p>
+  <h2 class="stit">Peer-reviewed work</h2>
+  <div class="pub-card"><div class="pub-img" title="Add paper figure"><i class="ti ti-photo" aria-hidden="true"></i></div><div><div class="pub-meta"><span class="pub-year">2025</span><span class="pub-journal">Movement Disorders</span></div><h3>The CM-aGPi network in the generation of tics in Tourette syndrome</h3><p style="margin-bottom:3px;">Lowor G., Gomez J., Hook M., Butson C., Foote K., Okun M.S., Gunduz A.</p><a class="pub-link" href="https://doi.org/10.1002/mds.70043">doi:10.1002/mds.70043 ↗</a></div></div>
+  <div class="pub-card"><div class="pub-img" title="Add paper figure"><i class="ti ti-photo" aria-hidden="true"></i></div><div><div class="pub-meta"><span class="pub-year">2024</span><span class="pub-journal">Nature Scientific Reports</span></div><h3>Responsive Deep Brain Stimulation for the Treatment of Tourette Syndrome</h3><p style="margin-bottom:3px;">Okun M.S., Cagle J., Gomez J., et al.</p><a class="pub-link" href="https://doi.org/10.1038/s41598-024-57071-5">doi:10.1038/s41598-024-57071-5 ↗</a></div></div>
+  <div class="pub-card"><div class="pub-img" title="Add paper figure"><i class="ti ti-photo" aria-hidden="true"></i></div><div><div class="pub-meta"><span class="pub-year">2022</span><span class="pub-journal">Clinical Neurophysiology</span></div><h3>The Human Tic Detector: An automatic approach to tic characterization using wearable sensors</h3><p style="margin-bottom:3px;">Cernera S., Pramanik L., Boogaart Z., Cagle J.N., Gomez J., Okun M.S., Gunduz A., et al.</p><a class="pub-link" href="https://doi.org/10.1016/j.clinph.2021.10.017">doi:10.1016/j.clinph.2021.10.017 ↗</a></div></div>
+  <div class="pub-card"><div class="pub-img" title="Add paper figure"><i class="ti ti-photo" aria-hidden="true"></i></div><div><div class="pub-meta"><span class="pub-year">2021</span><span class="pub-journal">Frontiers in Human Neuroscience</span></div><h3>Proceedings of the Seventh Annual Deep Brain Stimulation Think Tank</h3><p style="margin-bottom:3px;">Advances in Neurophysiology, Adaptive DBS, Virtual Reality, Neuroethics, and Technology</p><a class="pub-link" href="https://doi.org/10.3389/fnhum.2020.00054">doi:10.3389/fnhum.2020.00054 ↗</a></div></div>
+  <div class="pub-card"><div class="pub-img" title="Add paper figure"><i class="ti ti-photo" aria-hidden="true"></i></div><div><div class="pub-meta"><span class="pub-year">2020</span><span class="pub-journal">Journal of Neuroscience Methods</span></div><h3>Florida research open-source synchronization tool (FROST) for electrophysiology experiments</h3><p style="margin-bottom:3px;">Alcantara J.D., Eisinger R.S., Opri E., Kelberman M., Cagle J.N., Gomez J., et al.</p><a class="pub-link" href="https://doi.org/10.1016/j.jneumeth.2020.108800">doi:10.1016/j.jneumeth.2020.108800 ↗</a></div></div>
+</div>
+
+<div class="panel" id="panel-presentations">
+  <p class="slabel">Presentations</p>
+  <h2 class="stit">Conferences & talks</h2>
+  <div class="pres-card"><span class="pres-year">2026</span><div class="pres-map"><svg viewBox="0 0 52 38" xmlns="http://www.w3.org/2000/svg"><rect width="52" height="38" fill="#f0f0ee" rx="4"/><path d="M8,19 Q10,14 14,13 Q16,10 19,11 Q21,8 24,9 Q26,7 29,8 Q31,6 33,8 Q35,7 37,9 Q39,8 41,11 Q43,10 44,13 Q46,14 45,17 Q46,20 44,22 Q43,25 41,26 Q39,28 37,27 Q35,29 33,27 Q31,28 29,27 Q27,29 24,27 Q21,28 19,26 Q16,27 14,25 Q11,24 10,21 Q8,22 8,19Z" fill="#d0d0cc"/><circle cx="28" cy="18" r="2.5" fill="#C0392B"/></svg></div><div class="pres-body"><h3>Within-Subject Comparison of Cardiac Artifacts in Dual-Target Bilateral DBS for Tourette Syndrome</h3><p>17th World Congress of the International Neuromodulation Society · Projected</p></div></div>
+  <div class="pres-card"><span class="pres-year">2025</span><div class="pres-map"><svg viewBox="0 0 52 38" xmlns="http://www.w3.org/2000/svg"><rect width="52" height="38" fill="#f0f0ee" rx="4"/><path d="M4,20 Q5,16 7,14 Q8,11 10,10 Q11,8 13,9 Q14,7 16,8 Q17,6 19,7 Q20,5 22,6 Q21,8 20,10 Q19,11 18,13 Q17,14 18,16 Q19,18 18,20 Q17,22 16,23 Q14,25 13,24 Q11,25 10,23 Q8,24 7,22 Q5,21 4,20Z" fill="#d0d0cc"/><circle cx="14" cy="16" r="2.5" fill="#C0392B"/></svg></div><div class="pres-body"><h3>Discriminating Tics from Voluntary Movements to Optimize Adaptive DBS in Tourette Syndrome</h3><p>Society for Neuroscience Annual Meeting · San Diego, CA · Poster</p></div></div>
+  <div class="pres-card"><span class="pres-year">2025</span><div class="pres-map"><svg viewBox="0 0 52 38" xmlns="http://www.w3.org/2000/svg"><rect width="52" height="38" fill="#f0f0ee" rx="4"/><path d="M4,20 Q5,16 7,14 Q8,11 10,10 Q11,8 13,9 Q14,7 16,8 Q17,6 19,7 Q20,5 22,6 Q21,8 20,10 Q19,11 18,13 Q17,14 18,16 Q19,18 18,20 Q17,22 16,23 Q14,25 13,24 Q11,25 10,23 Q8,24 7,22 Q5,21 4,20Z" fill="#d0d0cc"/><circle cx="14" cy="16" r="2.5" fill="#C0392B"/></svg></div><div class="pres-body"><h3>Optimization of Adaptive Deep Brain Stimulation for Tourette Syndrome</h3><p>IEEE 12th Annual International Conference on Neural Engineering · San Diego, CA · Poster</p></div></div>
+  <div class="pres-card"><span class="pres-year">2025</span><div class="pres-map"><svg viewBox="0 0 52 38" xmlns="http://www.w3.org/2000/svg"><rect width="52" height="38" fill="#f0f0ee" rx="4"/><path d="M30,8 Q33,7 36,9 Q38,8 40,10 Q42,9 43,12 Q45,13 44,16 Q46,18 44,20 Q43,22 41,23 Q39,25 37,24 Q35,25 33,24 Q31,25 29,23 Q27,24 26,22 Q25,20 26,17 Q25,15 27,13 Q28,10 30,8Z" fill="#d0d0cc"/><circle cx="37" cy="17" r="2.5" fill="#C0392B"/></svg></div><div class="pres-body"><h3>Advancements in Adaptive DBS for Tourette Syndrome: A Multi-Nuclei Approach</h3><p>6th International Brain Stimulation Conference · Kobe, Japan · Remote</p></div></div>
+  <div class="pres-card"><span class="pres-year">2024</span><div class="pres-map"><svg viewBox="0 0 52 38" xmlns="http://www.w3.org/2000/svg"><rect width="52" height="38" fill="#f0f0ee" rx="4"/><path d="M4,20 Q5,16 7,14 Q8,11 10,10 Q11,8 13,9 Q14,7 16,8 Q17,6 19,7 Q20,5 22,6 Q21,8 20,10 Q19,11 18,13 Q17,14 18,16 Q19,18 18,20 Q17,22 16,23 Q14,25 13,24 Q11,25 10,23 Q8,24 7,22 Q5,21 4,20Z" fill="#d0d0cc"/><circle cx="17" cy="14" r="2.5" fill="#C0392B"/></svg></div><div class="pres-body"><h3>Advancements in Closed-Loop DBS for Tourette Syndrome: A Multi-Nuclei Approach</h3><p>SfN Annual Meeting · Chicago, IL · SfN Therapeutics/NINDS · Rising Scholars</p></div></div>
+  <div class="pres-card"><span class="pres-year">2024</span><div class="pres-map"><svg viewBox="0 0 52 38" xmlns="http://www.w3.org/2000/svg"><rect width="52" height="38" fill="#f0f0ee" rx="4"/><path d="M27,7 Q30,6 33,8 Q35,7 37,10 Q39,9 40,12 Q42,13 41,16 Q43,18 41,20 Q40,22 38,23 Q36,25 34,24 Q32,25 30,23 Q28,24 27,22 Q25,21 26,18 Q24,16 26,14 Q25,11 27,9 Q26,7 27,7Z" fill="#d0d0cc"/><circle cx="35" cy="16" r="2.5" fill="#C0392B"/></svg></div><div class="pres-body"><h3>Adaptive DBS for Tourette Syndrome: Insights from Chronic Neural Recordings in CM Thalamus and aGPi</h3><p>2nd Congress of the DBS Society · Istanbul, Türkiye · Poster</p></div></div>
+  <div class="pres-card"><span class="pres-year">2024</span><div class="pres-map"><svg viewBox="0 0 52 38" xmlns="http://www.w3.org/2000/svg"><rect width="52" height="38" fill="#f0f0ee" rx="4"/><path d="M4,20 Q5,16 7,14 Q8,11 10,10 Q11,8 13,9 Q14,7 16,8 Q17,6 19,7 Q20,5 22,6 Q21,8 20,10 Q19,11 18,13 Q17,14 18,16 Q19,18 18,20 Q17,22 16,23 Q14,25 13,24 Q11,25 10,23 Q8,24 7,22 Q5,21 4,20Z" fill="#d0d0cc"/><circle cx="15" cy="15" r="2.5" fill="#C0392B"/></svg></div><div class="pres-body"><h3>Estimulación Cerebral Profunda en Síndrome de Tourette</h3><p>SACNAS 3-Minute Thesis in Spanish · Oral Presentation</p></div></div>
+  <div class="pres-card"><span class="pres-year">2023</span><div class="pres-map"><svg viewBox="0 0 52 38" xmlns="http://www.w3.org/2000/svg"><rect width="52" height="38" fill="#f0f0ee" rx="4"/><path d="M4,20 Q5,16 7,14 Q8,11 10,10 Q11,8 13,9 Q14,7 16,8 Q17,6 19,7 Q20,5 22,6 Q21,8 20,10 Q19,11 18,13 Q17,14 18,16 Q19,18 18,20 Q17,22 16,23 Q14,25 13,24 Q11,25 10,23 Q8,24 7,22 Q5,21 4,20Z" fill="#d0d0cc"/><circle cx="16" cy="15" r="2.5" fill="#C0392B"/></svg></div><div class="pres-body"><h3>Analysis of Chronic Recordings in CM Thalamus and aGPi for Closed-Loop DBS in Tourette Syndrome</h3><p>SfN Annual Meeting · Washington, D.C. · Poster</p></div></div>
+  <div class="pres-card"><span class="pres-year">2023</span><div class="pres-map"><svg viewBox="0 0 52 38" xmlns="http://www.w3.org/2000/svg"><rect width="52" height="38" fill="#f0f0ee" rx="4"/><path d="M22,10 Q24,8 27,9 Q29,7 31,9 Q33,8 34,11 Q36,12 35,15 Q37,17 35,19 Q34,21 32,22 Q30,23 28,22 Q26,23 24,22 Q22,21 21,19 Q20,17 21,15 Q20,12 22,10Z" fill="#d0d0cc"/><circle cx="28" cy="15" r="2.5" fill="#C0392B"/></svg></div><div class="pres-body"><h3>Identification of Tic Onset Biomarkers from Chronic Recordings for Closed-Loop DBS</h3><p>10th International BCI Society Meeting · Brussels, Belgium · Poster</p></div></div>
+  <div class="pres-card"><span class="pres-year">2022</span><div class="pres-map"><svg viewBox="0 0 52 38" xmlns="http://www.w3.org/2000/svg"><rect width="52" height="38" fill="#f0f0ee" rx="4"/><path d="M4,20 Q5,16 7,14 Q8,11 10,10 Q11,8 13,9 Q14,7 16,8 Q17,6 19,7 Q20,5 22,6 Q21,8 20,10 Q19,11 18,13 Q17,14 18,16 Q19,18 18,20 Q17,22 16,23 Q14,25 13,24 Q11,25 10,23 Q8,24 7,22 Q5,21 4,20Z" fill="#d0d0cc"/><circle cx="13" cy="17" r="2.5" fill="#C0392B"/></svg></div><div class="pres-body"><h3>Chronic Biomarker Identification of Tic Onset in CM Thalamus for Closed-Loop DBS</h3><p>SfN · San Diego · BMES · San Antonio (Oral) · Psychiatric Neurosurgery Symposium · Atlanta (Oral)</p></div></div>
+</div>
+
+<div class="panel" id="panel-teaching">
+  <p class="slabel">Teaching</p>
+  <h2 class="stit">Teaching assistantships</h2>
+  <div class="ta-card">
+    <div class="ta-icon"><i class="ti ti-stethoscope" aria-hidden="true"></i></div>
+    <div class="ta-body"><h3>Biomedical Instrumentation Lab</h3><p>Teaching Assistant · University of Florida, Dept. of Biomedical Engineering<br>One semester · Gainesville, FL<br><br>Supported undergraduate students through hands-on laboratory sessions covering biomedical instrumentation, measurement principles, and experimental techniques used in clinical and research settings.</p></div>
+  </div>
+  <div class="ta-card">
+    <div class="ta-icon"><i class="ti ti-wave-sine" aria-hidden="true"></i></div>
+    <div class="ta-body"><h3>Biosignals and Systems</h3><p>Teaching Assistant · University of Florida, Dept. of Biomedical Engineering<br>One semester · Gainesville, FL<br><br>Assisted in instruction of signal processing fundamentals applied to biological systems, including filtering, spectral analysis, and system modeling relevant to neural and physiological signals.</p></div>
+  </div>
+</div>
+
+<div class="panel" id="panel-contact">
+  <p class="slabel">Contact me</p>
+  <h2 class="stit">Get in touch</h2>
+  <p class="form-note">Fill out the form below and your message will be sent directly to my inbox.</p>
+  <div id="form-area">
+    <div class="form-group"><label for="cf-name">Name</label><input type="text" id="cf-name" placeholder="Your name"></div>
+    <div class="form-group"><label for="cf-email">Email</label><input type="email" id="cf-email" placeholder="your@email.com"></div>
+    <div class="form-group"><label for="cf-msg">Message</label><textarea id="cf-msg" placeholder="Your message..."></textarea></div>
+    <button class="btn-r" onclick="sendMsg()"><i class="ti ti-send" aria-hidden="true"></i> Send message</button>
+  </div>
+  <div id="form-success" style="display:none;margin-top:1rem;padding:1rem;background:var(--red-l);border-radius:var(--border-radius-md);border:0.5px solid rgba(192,57,43,.2);">
+    <p style="font-size:13px;color:#8b1a12;font-weight:500;">Message sent!</p>
+    <p style="font-size:12px;color:#8b1a12;margin-top:4px;">Thanks for reaching out — I'll get back to you soon.</p>
+  </div>
+</div>
+
+<div class="footer"><p>© 2026 Julieth Gómez Durán · Brain Mapping Lab, University of Florida</p><p>jugodu.github.io</p></div>
+</div>
+</div>
+</div>
+
+<script>
+function sp(id, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.top-nav a').forEach(a => a.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  if (el) el.classList.add('active');
+}
+function sendMsg() {
+  var n = document.getElementById('cf-name').value.trim();
+  var e = document.getElementById('cf-email').value.trim();
+  var m = document.getElementById('cf-msg').value.trim();
+  if (!n || !e || !m) { alert('Please fill in all fields.'); return; }
+  var s = encodeURIComponent('Portfolio contact from ' + n);
+  var b = encodeURIComponent('Name: ' + n + '\nEmail: ' + e + '\n\nMessage:\n' + m);
+  window.location.href = 'mailto:jugodu@gmail.com?subject=' + s + '&body=' + b;
+  document.getElementById('form-area').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+}
+</script>
